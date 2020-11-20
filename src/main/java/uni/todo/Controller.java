@@ -52,6 +52,14 @@ public class Controller {
 	private Label fridayLabel;
 
 	@FXML
+	private Button scrollFwdButton;
+
+	@FXML
+	private Button scrollBwdButton;
+
+	private int weekIndex = 0;
+
+	@FXML
 	private void initialize() {
 		buttonAdd.setOnMouseClicked(event -> {
 			new AddDialog().showAndWait();
@@ -59,6 +67,14 @@ public class Controller {
 		});
 		buttonReload.setOnMouseClicked(event -> {
 			new DeleteDialog().showAndWait();
+			updateBoxes();
+		});
+		scrollFwdButton.setOnMouseClicked(event -> {
+			weekIndex++;
+			updateBoxes();
+		});
+		scrollBwdButton.setOnMouseClicked(event -> {
+			weekIndex--;
 			updateBoxes();
 		});
 		updateBoxes();
@@ -70,24 +86,27 @@ public class Controller {
 		wednesdayBox.getChildren().clear();
 		thursdayBox.getChildren().clear();
 		fridayBox.getChildren().clear();
-		final ArrayList<Date> datesOfWeek = TimeCalculator.getDates();
-		mondayLabel.setText(String.format("Montag, %s", datesOfWeek.get(0).format()));
-		tuesdayLabel.setText(String.format("Dienstag, %s", datesOfWeek.get(1).format()));
-		wednesdayLabel.setText(String.format("Mittwoch, %s", datesOfWeek.get(2).format()));
-		thursdayLabel.setText(String.format("Donnerstag, %s", datesOfWeek.get(3).format()));
-		fridayLabel.setText(String.format("Freitag, %s", datesOfWeek.get(4).format()));
+		final ArrayList<Date> datesOfWeek = TimeCalculator.getDatesWithOffset(weekIndex);
+		mondayLabel.setText(String.format("Montag, %s", TimeCalculator.autobots(datesOfWeek.get(0)).format()));
+		tuesdayLabel.setText(String.format("Dienstag, %s", TimeCalculator.autobots(datesOfWeek.get(1)).format()));
+		wednesdayLabel.setText(String.format("Mittwoch, %s", TimeCalculator.autobots(datesOfWeek.get(2)).format()));
+		thursdayLabel.setText(String.format("Donnerstag, %s", TimeCalculator.autobots(datesOfWeek.get(3)).format()));
+		fridayLabel.setText(String.format("Freitag, %s", TimeCalculator.autobots(datesOfWeek.get(4)).format()));
 		for (int dateIndex = 0; dateIndex < datesOfWeek.size(); dateIndex++) {
 			int finalDateIndex = dateIndex;
 			ArrayList<Task> tasks = TaskManager.getTasks(datesOfWeek.get(dateIndex));
 			for (int taskIndex = 0; taskIndex < tasks.size(); taskIndex++) {
 				Task task = tasks.get(taskIndex);
-				final Label taskLabel = new Label(String.format("%s - %s", task.getName(), task.getTime().format()));
+				final Label taskLabel = new Label();
 				taskLabel.setFont(Font.font(Font.getDefault().getFamily(), 15));
 				if (task.isDone()) {
+					taskLabel.setText(String.format("✅ %s - %s", task.getName(), task.getTime().format()));
 					taskLabel.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
 					taskLabel.setTextFill(Color.GRAY);
-				} else
+				} else {
+					taskLabel.setText(String.format("%s - %s", task.getName(), task.getTime().format()));
 					taskLabel.setBackground(new Background(new BackgroundFill(Color.web(task.getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
+				}
 				taskLabel.setPrefSize(200, 30);
 				taskLabel.setAlignment(Pos.CENTER);
 				taskLabel.setTextAlignment(TextAlignment.CENTER);

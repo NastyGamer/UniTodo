@@ -8,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Main extends Application {
@@ -24,7 +26,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("Main.fxml")));
 		primaryStage.setTitle("UniToDo");
-		primaryStage.setScene(new Scene(root, 1100, 600));
+		primaryStage.setScene(new Scene(root, 1150, 700));
 		primaryStage.setResizable(false);
 		primaryStage.getIcons().add(new Image(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream("Logo.png"))));
 		primaryStage.show();

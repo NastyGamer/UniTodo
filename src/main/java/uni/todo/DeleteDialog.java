@@ -1,9 +1,11 @@
 package uni.todo;
 
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,6 +26,8 @@ public class DeleteDialog extends Dialog<Void> {
 		choiceBox.setPrefHeight(30);
 		choiceBox.setMinWidth(250);
 		final Label deleteUncompletedLabel = new Label("Auch nicht erledigte: ");
+		deleteUncompletedLabel.setTextAlignment(TextAlignment.CENTER);
+		deleteUncompletedLabel.setAlignment(Pos.CENTER);
 		deleteUncompletedLabel.setMinWidth(200);
 		deleteUncompletedLabel.setMinHeight(30);
 		final CheckBox deleteUncompletedBox = new CheckBox();
@@ -31,7 +35,7 @@ public class DeleteDialog extends Dialog<Void> {
 		deleteUncompletedBox.setMinHeight(30);
 		final Button deleteButton = new Button("Löschen");
 		deleteButton.setMinWidth(250);
-		choiceBox.getItems().addAll("Alle", "Diese Wochen", "Heute");
+		choiceBox.getItems().addAll("Alle", "Diese Woche", "Heute");
 		deleteButton.setOnMouseClicked(event -> {
 			if (choiceBox.getValue() == null) return;
 			switch (choiceBox.getValue()) {
@@ -59,6 +63,8 @@ public class DeleteDialog extends Dialog<Void> {
 					if (deleteUncompletedBox.isSelected()) TaskManager.getTasks(today).clear();
 					else TaskManager.getTasks(today).removeIf(Task::isDone);
 					break;
+				default:
+					throw new IllegalStateException("Unexpected value: " + choiceBox.getValue());
 			}
 			close();
 		});
