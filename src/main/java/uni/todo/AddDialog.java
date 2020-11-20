@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 public class AddDialog extends Dialog<Void> {
 
 	public AddDialog() {
+		setTitle("Hinzufügen");
 		getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
 		Node closeButton = getDialogPane().lookupButton(ButtonType.CLOSE);
 		closeButton.managedProperty().bind(closeButton.visibleProperty());

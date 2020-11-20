@@ -28,7 +28,7 @@ public class TaskManager {
 		tasks.get(date).remove(task);
 	}
 
-	public static ArrayList<Task> getTask(Date date) {
+	public static ArrayList<Task> getTasks(Date date) {
 		if (!tasks.containsKey(date)) tasks.put(date, new ArrayList<>());
 		return tasks.get(date);
 	}

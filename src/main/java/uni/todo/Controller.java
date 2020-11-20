@@ -57,7 +57,10 @@ public class Controller {
 			new AddDialog().showAndWait();
 			updateBoxes();
 		});
-		buttonReload.setOnMouseClicked(event -> updateBoxes());
+		buttonReload.setOnMouseClicked(event -> {
+			new DeleteDialog().showAndWait();
+			updateBoxes();
+		});
 		updateBoxes();
 	}
 
@@ -75,12 +78,16 @@ public class Controller {
 		fridayLabel.setText(String.format("Freitag, %s", datesOfWeek.get(4).format()));
 		for (int dateIndex = 0; dateIndex < datesOfWeek.size(); dateIndex++) {
 			int finalDateIndex = dateIndex;
-			ArrayList<Task> tasks = TaskManager.getTask(datesOfWeek.get(dateIndex));
+			ArrayList<Task> tasks = TaskManager.getTasks(datesOfWeek.get(dateIndex));
 			for (int taskIndex = 0; taskIndex < tasks.size(); taskIndex++) {
 				Task task = tasks.get(taskIndex);
 				final Label taskLabel = new Label(String.format("%s - %s", task.getName(), task.getTime().format()));
 				taskLabel.setFont(Font.font(Font.getDefault().getFamily(), 15));
-				taskLabel.setBackground(new Background(new BackgroundFill(task.isDone() ? Color.GREEN : Color.web(task.getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
+				if (task.isDone()) {
+					taskLabel.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
+					taskLabel.setTextFill(Color.GRAY);
+				} else
+					taskLabel.setBackground(new Background(new BackgroundFill(Color.web(task.getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
 				taskLabel.setPrefSize(200, 30);
 				taskLabel.setAlignment(Pos.CENTER);
 				taskLabel.setTextAlignment(TextAlignment.CENTER);
@@ -97,9 +104,9 @@ public class Controller {
 					case 4 -> fridayBox.getChildren().add(taskLabel);
 					default -> throw new IllegalArgumentException();
 				}
-				if (taskIndex < TaskManager.getTask(datesOfWeek.get(dateIndex)).size() - 1) {
+				if (taskIndex < TaskManager.getTasks(datesOfWeek.get(dateIndex)).size() - 1) {
 					final AnchorPane placeHolder = new AnchorPane();
-					placeHolder.setPrefSize(200, 30 * ((TaskManager.getTask(datesOfWeek.get(dateIndex)).get(taskIndex + 1).getTime().getHour() - TaskManager.getTask(datesOfWeek.get(dateIndex)).get(taskIndex).getTime().getHour()) - 1));
+					placeHolder.setPrefSize(200, 30 * ((TaskManager.getTasks(datesOfWeek.get(dateIndex)).get(taskIndex + 1).getTime().getHour() - TaskManager.getTasks(datesOfWeek.get(dateIndex)).get(taskIndex).getTime().getHour()) - 1));
 					switch (finalDateIndex) {
 						case 0 -> mondayBox.getChildren().add(placeHolder);
 						case 1 -> tuesdayBox.getChildren().add(placeHolder);

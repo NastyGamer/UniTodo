@@ -18,7 +18,7 @@
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@plus.png" />
+                        <Image url="@Add.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -27,7 +27,7 @@
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@reload.png" />
+                        <Image url="@Delete.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -36,7 +36,7 @@
       </VBox>
       <VBox prefHeight="600.0" prefWidth="200.0">
          <children>
-            <Label fx:id="mondayLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" text="Montag" textAlignment="CENTER">
+            <Label fx:id="mondayLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #118AB2;" text="Montag" textAlignment="CENTER">
                <font>
                   <Font size="17.0" />
                </font>
@@ -54,7 +54,7 @@
       </VBox>
       <VBox prefHeight="600.0" prefWidth="200.0">
          <children>
-            <Label fx:id="tuesdayLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" text="Dienstag" textAlignment="CENTER">
+            <Label fx:id="tuesdayLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #118AB2;" text="Dienstag" textAlignment="CENTER">
                <font>
                   <Font size="17.0" />
                </font>
@@ -72,7 +72,7 @@
       </VBox>
       <VBox prefHeight="600.0" prefWidth="200.0">
          <children>
-            <Label fx:id="wednesdayLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" text="Mittwoch" textAlignment="CENTER">
+            <Label fx:id="wednesdayLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #118AB2;" text="Mittwoch" textAlignment="CENTER">
                <font>
                   <Font size="17.0" />
                </font>
@@ -90,7 +90,7 @@
       </VBox>
       <VBox prefHeight="600.0" prefWidth="200.0">
          <children>
-            <Label fx:id="thursdayLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" text="Donnerstag" textAlignment="CENTER">
+            <Label fx:id="thursdayLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #118AB2;" text="Donnerstag" textAlignment="CENTER">
                <font>
                   <Font size="17.0" />
                </font>
@@ -108,7 +108,7 @@
       </VBox>
       <VBox prefHeight="600.0" prefWidth="200.0">
          <children>
-            <Label fx:id="fridayLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" text="Freitag" textAlignment="CENTER">
+            <Label fx:id="fridayLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #118AB2;" text="Freitag" textAlignment="CENTER">
                <font>
                   <Font size="17.0" />
                </font>

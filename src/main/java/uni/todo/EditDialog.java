@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 public class EditDialog extends Dialog<Void> {
 
 	public EditDialog(Date date, Task task) {
+		setTitle("Bearbeiten");
 		getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
 		Node closeButton = getDialogPane().lookupButton(ButtonType.CLOSE);
 		closeButton.managedProperty().bind(closeButton.visibleProperty());
