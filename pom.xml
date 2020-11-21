@@ -33,6 +33,11 @@
             <artifactId>minimal-json</artifactId>
             <version>0.9.5</version>
         </dependency>
+        <dependency>
+            <groupId>com.cronutils</groupId>
+            <artifactId>cron-utils</artifactId>
+            <version>9.1.2</version>
+        </dependency>
     </dependencies>
 
 </project>

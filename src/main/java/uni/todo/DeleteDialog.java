@@ -47,7 +47,7 @@ public class DeleteDialog extends Dialog<Void> {
 					}
 					break;
 				case "Diese Woche":
-					final ArrayList<Date> datesOfWeek = TimeCalculator.getDates();
+					final ArrayList<Date> datesOfWeek = TimeCalculator.getDatesWithOffset(Controller.weekIndex);
 					if (deleteUncompletedBox.isSelected()) datesOfWeek.forEach(date -> {
 						TaskManager.getTasks(date).clear();
 					});

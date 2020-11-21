@@ -57,7 +57,7 @@ public class Controller {
 	@FXML
 	private Button scrollBwdButton;
 
-	private int weekIndex = 0;
+	public static int weekIndex = 0;
 
 	@FXML
 	private void initialize() {
