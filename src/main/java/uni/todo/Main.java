@@ -12,7 +12,7 @@ import java.util.Objects;
 
 public class Main extends Application {
 
-	public static final String TASK_FILE = String.format("%s\\.tasks.dat", System.getProperty("user.home"));
+	public static final String TASK_FILE = String.format("%s%s.tasks.dat", System.getProperty("user.home"), Util.osSwitch("\\", "/", "/"));
 
 	public static void main(String[] args) throws IOException {
 		TaskManager.loadTasks();
