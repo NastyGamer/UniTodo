@@ -7,6 +7,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
+import org.apache.commons.lang3.math.NumberUtils;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class AddDialog extends Dialog<Void> {
 
@@ -16,39 +20,154 @@ public class AddDialog extends Dialog<Void> {
 		Node closeButton = getDialogPane().lookupButton(ButtonType.CLOSE);
 		closeButton.managedProperty().bind(closeButton.visibleProperty());
 		closeButton.setVisible(false);
-		getDialogPane().setPrefSize(350, 240);
-		final TextField nameField = new TextField("Name");
-		nameField.setMinSize(350, 30);
-		final DatePicker datePicker = new DatePicker();
-		datePicker.setMinSize(350, 30);
+		getDialogPane().setPrefSize(350, 535);
+		//------------------Widgets------------------//
+		final VBox root = new VBox();
+
 		final Label nameLabel = new Label("Name");
 		nameLabel.setMinSize(350, 30);
+
+		final TextField nameField = new TextField("Name");
+		nameField.setMinSize(350, 30);
+
 		final Label dateLabel = new Label("Datum");
 		dateLabel.setMinSize(350, 30);
+
+		final DatePicker datePicker = new DatePicker();
+		datePicker.setMinSize(350, 30);
+
 		final Label timeLabel = new Label("Uhrzeit");
 		timeLabel.setMinSize(350, 30);
+
+		final TextField hourField = new TextField("00");
+		hourField.setMinSize(170, 30);
+
 		final Label dividerLabel = new Label(":");
 		dividerLabel.setTextAlignment(TextAlignment.CENTER);
 		dividerLabel.setAlignment(Pos.CENTER);
 		dividerLabel.setMinSize(10, 30);
-		final TextField hourField = new TextField("00");
-		hourField.setMinSize(170, 30);
+
 		final TextField minuteField = new TextField("00");
 		minuteField.setMinSize(170, 30);
-		final Button okayButton = new Button("Hinzufügen");
-		final ColorPicker colorPicker = new ColorPicker(Color.RED);
-		colorPicker.setMinSize(350, 30);
+
 		final Label colorLabel = new Label("Farbe");
 		colorLabel.setMinSize(350, 30);
+
+		final ColorPicker colorPicker = new ColorPicker(Color.RED);
+		colorPicker.setMinSize(350, 30);
+
+		final Label recurringLabel = new Label("Wiederkehrend");
+		recurringLabel.setMinSize(300, 30);
+
+		final CheckBox isRecurringCheckbox = new CheckBox();
+		isRecurringCheckbox.setMinSize(50, 30);
+
+		final Label mondayLabel = new Label("Montag");
+		mondayLabel.setMinSize(300, 30);
+		final CheckBox mondayCheckbox = new CheckBox();
+		mondayCheckbox.setMinSize(50, 30);
+
+		final Label tuesdayLabel = new Label("Dienstag");
+		tuesdayLabel.setMinSize(300, 30);
+		final CheckBox tuesdayCheckbox = new CheckBox();
+		tuesdayCheckbox.setMinSize(50, 30);
+
+		final Label wednesdayLabel = new Label("Mittwoch");
+		wednesdayLabel.setMinSize(300, 30);
+		final CheckBox wednesdayCheckbox = new CheckBox();
+		wednesdayCheckbox.setMinSize(50, 30);
+
+		final Label thursdayLabel = new Label("Donnerstag");
+		thursdayLabel.setMinSize(300, 30);
+		final CheckBox thursdayCheckbox = new CheckBox();
+		thursdayCheckbox.setMinSize(50, 30);
+
+		final Label fridayLabel = new Label("Freitag");
+		fridayLabel.setMinSize(300, 30);
+		final CheckBox fridayCheckbox = new CheckBox();
+		fridayCheckbox.setMinSize(50, 30);
+
+		final Label durationLabel = new Label("Wochen:");
+		durationLabel.setMinSize(50, 30);
+
+		final TextField durationField = new TextField("1");
+		durationField.setMinSize(300, 30);
+
+		final Button okayButton = new Button("Hinzufügen");
 		okayButton.setMinWidth(350);
 		okayButton.setOnMouseClicked(event -> {
-			if (nameField.getText().isEmpty() || datePicker.getValue() == null) return;
-			TaskManager.addTask(TimeCalculator.decepticons(new Date(datePicker.getValue().getDayOfMonth(), datePicker.getValue().getMonthValue(), datePicker.getValue().getYear())), new Task(new Time(Integer.parseInt(hourField.getText()), Integer.parseInt(minuteField.getText())), nameField.getText(), colorPicker.getValue().toString(), false));
-			System.out.printf("%g, %g, %g%n", colorPicker.getValue().getRed(), colorPicker.getValue().getBlue(), colorPicker.getValue().getGreen());
+			if (nameField.getText().isEmpty() || datePicker.getValue() == null || !NumberUtils.isCreatable(durationField.getText()) || Integer.parseInt(durationField.getText()) <= 0)
+				return;
+			if (!isRecurringCheckbox.isSelected())
+				TaskManager.addTask(TimeCalculator.decepticons(new Date(datePicker.getValue().getDayOfMonth(), datePicker.getValue().getMonthValue(), datePicker.getValue().getYear())), new Task(new Time(Integer.parseInt(hourField.getText()), Integer.parseInt(minuteField.getText())), nameField.getText(), colorPicker.getValue().toString(), false));
+			else {
+				final ArrayList<Date> dates = new ArrayList<>();
+				for (int i = 0; i < Integer.parseInt(durationField.getText()); i++) {
+					final ArrayList<Date> weekDates = TimeCalculator.getDatesWithOffset(i);
+					if (!mondayCheckbox.isSelected()) weekDates.set(0, null);
+					if (!tuesdayCheckbox.isSelected()) weekDates.set(1, null);
+					if (!wednesdayCheckbox.isSelected()) weekDates.set(2, null);
+					if (!thursdayCheckbox.isSelected()) weekDates.set(3, null);
+					if (!fridayCheckbox.isSelected()) weekDates.set(4, null);
+					weekDates.removeIf(Objects::isNull);
+					dates.addAll(weekDates);
+				}
+				System.out.println(dates.toString());
+				dates.forEach(date -> TaskManager.addTask(date, new Task(new Time(Integer.parseInt(hourField.getText()), Integer.parseInt(minuteField.getText())), nameField.getText(), colorPicker.getValue().toString(), false)));
+			}
 			close();
 		});
-		getDialogPane().setContent(new VBox(nameLabel, nameField, dateLabel, datePicker, timeLabel, new HBox(hourField, dividerLabel, minuteField), colorLabel, colorPicker, new Label("") {{
-			setMinSize(350, 30);
-		}}, okayButton));
+
+		isRecurringCheckbox.setOnMouseClicked(event -> {
+			root.getChildren().clear();
+			root.getChildren().addAll(
+					nameLabel,
+					nameField,
+					dateLabel,
+					datePicker,
+					timeLabel,
+					new HBox(
+							hourField,
+							dividerLabel,
+							minuteField
+					),
+					new HBox(recurringLabel, isRecurringCheckbox)
+			);
+			if (isRecurringCheckbox.isSelected()) root.getChildren().addAll(
+					new HBox(mondayLabel, mondayCheckbox),
+					new HBox(tuesdayLabel, tuesdayCheckbox),
+					new HBox(wednesdayLabel, wednesdayCheckbox),
+					new HBox(thursdayLabel, thursdayCheckbox),
+					new HBox(fridayLabel, fridayCheckbox),
+					new HBox(durationLabel, durationField)
+			);
+			root.getChildren().addAll(
+					colorLabel,
+					colorPicker,
+					new Label("") {{
+						setMinSize(350, 30);
+					}}, okayButton
+			);
+		});
+		//------------------Widgets------------------//
+		root.getChildren().addAll(
+				nameLabel,
+				nameField,
+				dateLabel,
+				datePicker,
+				timeLabel,
+				new HBox(
+						hourField,
+						dividerLabel,
+						minuteField
+				),
+				new HBox(recurringLabel, isRecurringCheckbox),
+				colorLabel,
+				colorPicker,
+				new Label("") {{
+					setMinSize(350, 30);
+				}}, okayButton
+		);
+		getDialogPane().setContent(root);
 	}
 }

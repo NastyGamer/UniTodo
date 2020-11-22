@@ -15,49 +15,35 @@ import java.util.ArrayList;
 
 public class Controller {
 
+	public static int weekIndex = 0;
 	@FXML
 	private Button buttonAdd;
-
 	@FXML
 	private Button buttonReload;
-
 	@FXML
 	private VBox mondayBox;
-
 	@FXML
 	private VBox tuesdayBox;
-
 	@FXML
 	private VBox wednesdayBox;
-
 	@FXML
 	private VBox thursdayBox;
-
 	@FXML
 	private VBox fridayBox;
-
 	@FXML
 	private Label mondayLabel;
-
 	@FXML
 	private Label tuesdayLabel;
-
 	@FXML
 	private Label wednesdayLabel;
-
 	@FXML
 	private Label thursdayLabel;
-
 	@FXML
 	private Label fridayLabel;
-
 	@FXML
 	private Button scrollFwdButton;
-
 	@FXML
 	private Button scrollBwdButton;
-
-	public static int weekIndex = 0;
 
 	@FXML
 	private void initialize() {
