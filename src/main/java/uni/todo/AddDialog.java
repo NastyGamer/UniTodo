@@ -9,6 +9,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import org.apache.commons.lang3.math.NumberUtils;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -20,7 +24,7 @@ public class AddDialog extends Dialog<Void> {
 		Node closeButton = getDialogPane().lookupButton(ButtonType.CLOSE);
 		closeButton.managedProperty().bind(closeButton.visibleProperty());
 		closeButton.setVisible(false);
-		getDialogPane().setPrefSize(350, 535);
+		getDialogPane().setPrefSize(350, 565);
 		//------------------Widgets------------------//
 		final VBox root = new VBox();
 
@@ -93,6 +97,16 @@ public class AddDialog extends Dialog<Void> {
 		final TextField durationField = new TextField("1");
 		durationField.setMinSize(300, 30);
 
+		final Label endDateLabel = new Label("Enddatum");
+		endDateLabel.setMinSize(50, 30);
+
+		final DatePicker endDatePicker = new DatePicker();
+		endDatePicker.setMinSize(300, 30);
+
+		endDatePicker.setOnAction(event -> {
+			final Date d = TimeCalculator.today();
+			durationField.setText(String.valueOf(ChronoUnit.WEEKS.between(LocalDate.of(d.getYear(), d.getMonth(), d.getDay()).with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)), endDatePicker.getValue().with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY))) + 1));
+		});
 		final Button okayButton = new Button("Hinzufügen");
 		okayButton.setMinWidth(350);
 		okayButton.setOnMouseClicked(event -> {
@@ -139,6 +153,7 @@ public class AddDialog extends Dialog<Void> {
 					new HBox(wednesdayLabel, wednesdayCheckbox),
 					new HBox(thursdayLabel, thursdayCheckbox),
 					new HBox(fridayLabel, fridayCheckbox),
+					new HBox(endDateLabel, endDatePicker),
 					new HBox(durationLabel, durationField)
 			);
 			root.getChildren().addAll(
