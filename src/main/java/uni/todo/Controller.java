@@ -46,6 +46,8 @@ public class Controller {
 	@FXML
 	private Button scrollFwdButton;
 	@FXML
+	private Button homeButton;
+	@FXML
 	private Button scrollBwdButton;
 
 	@FXML
@@ -64,6 +66,10 @@ public class Controller {
 		});
 		scrollBwdButton.setOnMouseClicked(event -> {
 			weekIndex--;
+			updateBoxes();
+		});
+		homeButton.setOnMouseClicked(event -> {
+			weekIndex = 0;
 			updateBoxes();
 		});
 		updateBoxes();
