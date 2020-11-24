@@ -5,6 +5,7 @@
       <element id="module-output" name="UniTodo" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.11/commons-lang3-3.11.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/eclipsesource/minimal-json/minimal-json/0.9.5/minimal-json-0.9.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/sourceforge/argparse4j/argparse4j/0.8.1/argparse4j-0.8.1.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
