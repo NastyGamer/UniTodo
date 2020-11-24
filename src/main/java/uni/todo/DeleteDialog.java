@@ -54,13 +54,10 @@ public class DeleteDialog extends Dialog<Void> {
 					break;
 				case "Diese Woche":
 					final ArrayList<Date> datesOfWeek = TimeCalculator.getDatesWithOffset(Controller.weekIndex);
-					if (deleteUncompletedBox.isSelected()) datesOfWeek.forEach(date -> {
-						TaskManager.getTasks(date).clear();
-					});
+					if (deleteUncompletedBox.isSelected())
+						datesOfWeek.forEach(date -> TaskManager.getTasks(date).clear());
 					else {
-						datesOfWeek.forEach(date -> {
-							TaskManager.getTasks(date).removeIf(Task::isDone);
-						});
+						datesOfWeek.forEach(date -> TaskManager.getTasks(date).removeIf(Task::isDone));
 					}
 					break;
 				case "Heute":
@@ -76,5 +73,4 @@ public class DeleteDialog extends Dialog<Void> {
 		});
 		getDialogPane().getChildren().add(new VBox(choiceLabel, choiceBox, new HBox(deleteUncompletedLabel, deleteUncompletedBox), deleteButton));
 	}
-
 }

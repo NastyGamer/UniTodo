@@ -22,7 +22,9 @@ public class EditDialog extends Dialog<Void> {
 		doneButton.setPrefSize(100, 30);
 		final Button deleteButton = new Button("Löschen");
 		deleteButton.setPrefSize(100, 30);
-		getDialogPane().setContent(new VBox(doneButton, new AnchorPane() {{setMinHeight(15);}},deleteButton));
+		getDialogPane().setContent(new VBox(doneButton, new AnchorPane() {{
+			setMinHeight(15);
+		}}, deleteButton));
 		deleteButton.setOnMouseClicked(event -> {
 			TaskManager.deleteTask(date, task);
 			close();

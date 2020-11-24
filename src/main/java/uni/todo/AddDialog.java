@@ -6,7 +6,6 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.TextAlignment;
 import org.apache.commons.lang3.math.NumberUtils;
 
