@@ -1,10 +1,11 @@
 package uni.todo;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 
 import java.time.LocalDate;
@@ -15,24 +16,29 @@ public class DeleteDialog extends Dialog<Void> {
 	public DeleteDialog() {
 		setTitle("Löschen");
 		getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+		getDialogPane().setBackground(new Background(new BackgroundFill(Color.web("#263238"), CornerRadii.EMPTY, Insets.EMPTY)));
 		Node closeButton = getDialogPane().lookupButton(ButtonType.CLOSE);
 		closeButton.managedProperty().bind(closeButton.visibleProperty());
 		closeButton.setVisible(false);
 		getDialogPane().setPrefSize(250, 120);
+
 		final Label choiceLabel = new Label("Welche Aufgaben:");
-		choiceLabel.setMinWidth(250);
-		choiceLabel.setMinHeight(30);
+		choiceLabel.setMinSize(250, 30);
+		choiceLabel.setTextFill(Color.WHITE);
+
 		final ChoiceBox<String> choiceBox = new ChoiceBox<>();
-		choiceBox.setPrefHeight(30);
-		choiceBox.setMinWidth(250);
+		choiceBox.setMinSize(250, 30);
+
 		final Label deleteUncompletedLabel = new Label("Auch nicht erledigte: ");
 		deleteUncompletedLabel.setTextAlignment(TextAlignment.CENTER);
 		deleteUncompletedLabel.setAlignment(Pos.CENTER);
 		deleteUncompletedLabel.setMinWidth(200);
-		deleteUncompletedLabel.setMinHeight(30);
+		deleteUncompletedLabel.setMinSize(200, 30);
+		deleteUncompletedLabel.setTextFill(Color.WHITE);
+
 		final CheckBox deleteUncompletedBox = new CheckBox();
-		deleteUncompletedBox.setMinWidth(50);
-		deleteUncompletedBox.setMinHeight(30);
+		deleteUncompletedBox.setMinSize(50, 30);
+
 		final Button deleteButton = new Button("Löschen");
 		deleteButton.setMinWidth(250);
 		choiceBox.getItems().addAll("Alle", "Diese Woche", "Heute");

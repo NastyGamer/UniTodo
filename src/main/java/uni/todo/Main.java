@@ -6,15 +6,26 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import net.sourceforge.argparse4j.ArgumentParsers;
+import net.sourceforge.argparse4j.inf.ArgumentParser;
+import net.sourceforge.argparse4j.inf.ArgumentParserException;
 
 import java.io.IOException;
 import java.util.Objects;
 
 public class Main extends Application {
 
-	public static final String TASK_FILE = String.format("%s%s.tasks.dat", System.getProperty("user.home"), Util.osSwitch("\\", "/", "/"));
+	public static String TASK_FILE;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, ArgumentParserException {
+		final ArgumentParser argParser = ArgumentParsers.newFor("prog").build();
+		argParser.addArgument("--filePath")
+				.type(String.class)
+				.help("The path of the data file")
+				.setDefault(String.format("%s%s.tasks.dat", System.getProperty("user.home"), Util.osSwitch("\\", "/", "/")))
+				.required(false);
+		System.out.printf("Using file path %s%n", argParser.parseArgs(args).getString("filePath"));
+		TASK_FILE = argParser.parseArgs(args).getString("filePath");
 		TaskManager.loadTasks();
 		launch(args);
 		TaskManager.writeTasks();

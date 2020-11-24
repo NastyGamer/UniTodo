@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -92,6 +93,7 @@ public class Controller {
 			ArrayList<Task> tasks = TaskManager.getTasks(datesOfWeek.get(dateIndex));
 			tasks.forEach(task -> {
 				final Label taskLabel = new Label();
+				taskLabel.setTooltip(new Tooltip(task.getName()));
 				taskLabel.setFont(Font.font(Font.getDefault().getFamily(), 15));
 				if (task.isDone()) {
 					taskLabel.setText(String.format("✅ %s - %s", task.getName(), task.getTime().format()));

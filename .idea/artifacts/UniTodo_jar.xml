@@ -2,10 +2,8 @@
   <artifact type="jar" name="UniTodo:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/UniTodo_jar</output-path>
     <root id="archive" name="UniTodo.jar">
-      <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" />
-      </element>
       <element id="module-output" name="UniTodo" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.11/commons-lang3-3.11.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/eclipsesource/minimal-json/minimal-json/0.9.5/minimal-json-0.9.5.jar" path-in-jar="/" />
     </root>
   </artifact>
